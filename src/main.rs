@@ -70,7 +70,7 @@ fn main() {
 
     let quiet = match tty {
         true => args.is_present("quiet"),
-        false => true
+        false => false
     };
 
     let html = match use_cache {
@@ -207,7 +207,7 @@ fn main() {
 
 fn no_result(tty: bool, w: usize, data: scraper::Html, quiet: bool, corrected: bool) {
     match tty {
-        true => match quiet {
+        true | false => match quiet {
             true => println!("{} Sorry about that!", "No result:".red().bold()),
             false => {
                 if corrected {
@@ -220,7 +220,6 @@ fn no_result(tty: bool, w: usize, data: scraper::Html, quiet: bool, corrected: b
                 print_urls(w, data)
             }
         },
-        false => eprintln!("No result!")
     }
 }
 
